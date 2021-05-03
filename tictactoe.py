@@ -1,126 +1,124 @@
 #Tic Tac Toe Game
-import time
+#By Rafael Perez
+#@ralphiecodes
 
-#Global Variables
-row1 = ['', '', '']
-row2 = ['', '', '']
-row3 = ['', '', '']
-
-current_letter = ''
-current_index = 0
-
-# if player_one_turn == True:
-#            player_one()
-#        else:
-#           player_two()
-#
-
-
-#Game Display
-def display():
-    print('Current Board')
-    print(row1)
-    print(row2)
-    print(row3)
-
-#Game start
-def game():
-    
-    print('Hey! Welcome to Tic Tac Toe')
-    time.sleep(1)
-    display()
-    
-    x = input('Please enter X or O?')
-    if x != 'end':
-        phase_one(x)
-        game()
+def check_win(board,mark,player1,player2,my_board,re_board):
+   
+   global game_end
+   #horizontal win
+   if(board[7] == mark and board[8] == mark and  board[9] == mark):
+       print('Game is over  ' + player1[0] + ' has won')
+   
+       board_display(my_board,re_board)
+       game_end = True
+       game_start()
+   elif(board[4] == mark and board[5] == mark and board[6] == mark):
+       print('Game is over  ' + player1[0] + ' has won')
+       board_display(my_board,re_board)
+       game_end = True
+       game_start()
+   elif(board[1] == mark and board[2] == mark and  board[3] == mark):
+       print('Game is over  ' + player1[0] + ' has won')
+       
+       board_display(my_board,re_board)
+       game_end = True
+       game_start()
+   #diagonal win
+   elif(board[1] == mark and board[5] == mark and board[6] == mark):
+       print('Game is over  ' + player1[0] + ' has won')
+       
+       board_display(my_board,re_board)
+       game_end = True
+       game_start()
+   elif(board[3] == mark and board[5] == mark and board[7] == mark):
+       print('Game is over  ' + player1[0] + ' has won')
+       
+       board_display(my_board,re_board)
+       game_end = True
+       game_start()
+   #vertical win
+   elif(board[1] == mark and board[4] == mark and board[7] == mark):
+       print('Game is over  ' + player1[0] + ' has won')
+       
+       board_display(my_board,re_board)
+       game_end = True
+       game_start()
+   elif(board[2] == mark and board[5] == mark and  board[8] == mark):
+       print('Game is over  ' + player1[0] + ' has won')
+       
+       board_display(my_board,re_board)
+       game_end = True
+       game_start()
+   elif(board[3] == mark and  board[6] == mark and  board[9] == mark):
+       print('Game is over  ' + player1[0] + ' has won')
+       
+       board_display(my_board,re_board)
+       game_end = True
+       game_start()
+   else:
+       pass
+          
+def game_start():
+    player1 = ['']
+    player2 = ['']
+    game_end = False
+    response = ''
+    test_board =['#','X','X','X','O','X','O','X','O','X']
+    my_board =['#',' ',' ',' ',' ',' ',' ',' ',' ',' ']
+    re_board =['#','1','2','3','4','5','6','7','8','9']
+    if game_end == True:
+        response = input('Would you like to play again? Y or N')
+        if response == 'Y':
+            game_end = False
+        else:
+            game_end = True
     else:
-        print('Game ended')
-    
-    
+        print('Welcome to Tic Tac Toe! by @ralphiecodes')
+        player_choice(player1, player2)
+        board_display(my_board,re_board)
+        print(player1,player2)
 
-def phase_one(x):
-    global current_letter
-    if x == 'X' or x == 'x':
-        current_letter = 'X'
-        phase_two()
-    elif  x == 'O' or x != 'o':
-        current_letter = 'O'
-        phase_two()
-    else:
-        print('Please enter valid input?')
-        phase_one()
 
-def phase_two():
-    where = input("Where would you like to place it? ex: row1, row2, row3  ")
-    global row1
-    global row2
-    global row3
-    if where == 'row1':
-        index = int(input('Tell me which index you would like to place it at? 0 for left, 1 for middle and 2 for right  '))
-        if index == 0:
-            row1[0] = current_letter
-            display()
-        elif index == 1:
-            row1[1] = current_letter
-            display()
-        elif index == 2:
-            row1[2] = current_letter
-            display()
-        else:
-            pass
-    elif where == 'row2':
-        index = int(input('Tell me which index you would like to place it at? 0 for left, 1 for middle and 2 for right  '))
-        if index == 0:
-            row2[0] = current_letter
-            display()
-        elif index == 1:
-            row2[1] = current_letter
-            display()      
-        elif index == 2:
-            row2[2] = current_letter
-            display()
-        else:
-            pass  
-    elif where == 'row3':
-        index = int(input('Tell me which index you would like to place it at? 0 for left, 1 for middle and 2 for right  '))
-        if index == 0:
-            row3[0] = current_letter
-            display()
-        elif index == 1:
-            row3[1] = current_letter
-            display()
-        elif index == 2:
-            row3[2] = current_letter
-            display()
-        else:
-            pass
+
+
+        while game_end == False:
+            if my_board[-1] == 'X' or  my_board[-1] == 'O':
+               game_end = True
+
+            else:
+                position = int(input(f"Select your position: {player1[0]}"))
+                my_board[position] = player1[0]
+                check_win(my_board,player1[0],player1, player2,my_board,re_board)
+                board_display(my_board,re_board)
+                position = int(input(f"Select your position: {player2[0]}"))
+                my_board[position] = player2[0]
+                board_display(my_board,re_board)
+                check_win(my_board,player2[0],player1,player2,my_board,re_board)
         
-    else:
-        print("Please enter valid row? ex: row1, row2, row3  ")
-        phase_two()
 
+            
+
+
+
+def board_display(board,board_two):
+    print('Main Board' + '      ' + 'Reference Board')
+    print(board[7] + '|' + board[8] + '|' + board[9] + '           ' + board_two[7] + '|' + board_two[8] + '|' + board_two[9])
+    print(board[4] + '|' + board[5] + '|' + board[6] + '           ' + board_two[4] + '|' + board_two[5] + '|' + board_two[6])
+    print(board[1] + '|' + board[2] + '|' + board[3] + '           ' + board_two[1] + '|' + board_two[2] + '|' + board_two[3])
+
+
+
+
+
+def player_choice(player1,player2):
+
+    while player1[0] != "X" and player1[0] != "O":
+        player1[0] = input('Player 1 please choose either "X" or "O" ')
+        if player1[0] == 'X':
+            player2[0] = 'O'
+        else:
+            player2[0] = 'X'
+    print(f'Player 1 is = {player1[0]} \nPlayer 2 is = {player2[0]}')
     
 
-
-def win():
-    row = ''
-    letter = ''
-    if letter in row and 
-
-
-
-# Validates user input
-def user_choice(choice):
-    if type(choice) == int:
-        if choice not in [0,1,2]:
-            print('You are out of range')
-            time.sleep(1)
-        else:
-            pass
-    elif type(choice) == str and len(choice) == 1:  
-        pass
-    else:
-        print('Please enter a valid number? 0,1,2  ')
-
-game()
+game_start()
